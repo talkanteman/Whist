@@ -1,0 +1,86 @@
+.Card0 {
+    position: absolute;
+    height: 140px;
+    width: auto;
+    top: 21%;
+    left: 44%;
+}
+.Card1 {
+    position: absolute;
+    height: 140px;
+    width: auto;
+    top: 34%;
+    right: 36%;
+}
+.Card2 {
+    position: absolute;
+    height: 140px;
+    width: auto;
+    top: 46%;
+    left: 44%;
+}
+.Card3 {
+    position: absolute;
+    height: 140px;
+    width: auto;
+    top: 34%;
+    left: 30%;
+}
+.UpCard {
+    position: absolute;
+    height: 140px;
+    width: auto;
+    top: 1px;
+}
+.RightCard {
+    position: absolute;
+    height: 140px;
+    width: auto;
+    right: 40px;
+}
+.UserCard {
+    position: absolute;
+    width: auto;
+    height: 140px;
+    bottom: 1px;
+
+}
+.UserCardOver {
+    position: absolute;
+    width: auto;
+    height: 140px;
+    bottom: 10px;
+}
+.LeftCard {
+    position: absolute;
+    width: auto;
+    height: 140px;
+    left: 40px;
+}
+.U0 {left: 25%;}
+.U1 {left: 28%;}
+.U2 {left: 31%;}
+.U3 {left: 34%;}
+.U4 {left: 37%;}
+.U5 {left: 40%;}
+.U6 {left: 43%;}
+.U7 {left: 46%;}
+.U8 {left: 49%;}
+.U9 {left: 52%;}
+.U10 {left: 55%;}
+.U11 {left: 58%;}
+.U12 {left: 61%;}
+
+.LR0 {top: 17%;}
+.LR1 {top: 20%;}
+.LR2 {top: 23%;}
+.LR3 {top: 26%;}
+.LR4 {top: 29%;}
+.LR5 {top: 32%;}
+.LR6 {top: 35%;}
+.LR7 {top: 38%;}
+.LR8 {top: 41%;}
+.LR9 {top: 44%;}
+.LR10 {top: 47%;}
+.LR11 {top: 50%;}
+.LR12 {top: 53%;}

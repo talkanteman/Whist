@@ -1,0 +1,25 @@
+.Enter {
+    display: flex;
+    border: 2px solid;
+    height: 50px;
+    border-radius: 10px;
+    background-color: chartreuse;
+    position: absolute;
+    left: 41%;
+    bottom: 50%;
+}
+.OnMouseOver {
+    display: flex;
+    border: 2px solid;
+    height: 50px;
+    border-radius: 10px;
+    position: absolute;
+    left: 41%;
+    bottom: 50%;
+}
+.headLine {
+    display: flex;
+    position: absolute;
+    left: 35%;
+    font-size: 50px;
+}

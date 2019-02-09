@@ -1,0 +1,50 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid;
+    border-radius: 10px;
+    background-color: skyblue;
+}
+.Dominant {
+    position: absolute;
+    height: 15px;
+    width: 15px;
+}
+.GetBet {
+    position: absolute;
+    border: 1px solid;
+    border-radius: 10px;
+    left: 40%;
+    bottom: 150px;
+}
+
+.Bet0 {
+    position: absolute;
+    background-color: skyblue;
+    border: 1px solid;
+    border-radius: 10px;
+    width: 130px;
+    height: 26px;
+    top: 145px;
+    left: 43%;
+}
+.Bet1 {
+    position: absolute;
+    background-color: skyblue;
+    border: 1px solid;
+    border-radius: 10px;
+    width: 130px;
+    height: 26px;
+    top: 42%;
+    right: 38%;
+}
+.Bet3 {
+    position: absolute;
+    background-color: skyblue;
+    border: 1px solid;
+    border-radius: 10px;
+    width: 130px;
+    height: 26px;
+    top: 37%;
+    left: 31%;
+}

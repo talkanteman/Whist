@@ -1,0 +1,35 @@
+.UpName {
+    position: absolute;
+    left: 17%;
+    width: 100px;
+    background-color: blueviolet;
+    border: 3px solid;
+    border-radius: 8px;
+}
+.RightName {
+    position: absolute;
+    top: 1px;
+    right: 13%;
+    width: 100px;
+    background-color: blueviolet;
+    border: 3px solid;
+    border-radius: 8px;
+}
+.UserName {
+    position: absolute;
+    bottom: 5%;
+    left: 70%;
+    width: 100px;
+    background-color: blueviolet;
+    border: 3px solid;
+    border-radius: 8px;
+}
+.LeftName {
+    position: absolute;
+    top: 79%;
+    left: 13%;
+    width: 100px;
+    background-color: blueviolet;
+    border: 3px solid;
+    border-radius: 8px;
+}

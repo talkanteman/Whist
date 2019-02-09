@@ -122,22 +122,22 @@ function compareValue(xValue, yValue) {
             return 1;
     }
 }
-export function initDominant(players) {
+export function initTramp(players) {
     let bets = [{value: '', shape: ''},{value: '', shape: ''},{value: '', shape: ''},{value: '', shape: ''}],
-        dominant , i;
+        tramp , i;
     for (i=0; i<4; i++) {
         bets[i] = players[i].bet;
     }
-    dominant = {value: 0, shape: ''};
+    tramp = {value: 0, shape: ''};
     for (i=0; i<4; i++) {
         if (!isNaN(bets[i].value)) {
-            if (bets[i].value > dominant.value)
-                dominant = bets[i];
-            else if (bets[i].value === dominant.value && bets[i].shape > dominant.shape)
-                dominant = bets[i];
+            if (bets[i].value > tramp.value)
+                tramp = bets[i];
+            else if (bets[i].value === tramp.value && bets[i].shape > tramp.shape)
+                tramp = bets[i];
         }
     }
-    return dominant.shape;
+    return tramp.shape;
 }
 
 /* init the player */
@@ -151,29 +151,29 @@ export function initGame(cards) {
     return tempPlayers;
 }
 /* get the winner card */
-export function getWinner(cardsValue, dominant, roundShape) {
+export function getWinner(cardsValue, tramp, roundShape) {
     let max = cardsValue[0];
     let winner = 0, i;
     for (i=1; i<4; i++){
-        if(compareByDominant(cardsValue[i], max, dominant, roundShape) === 1) {
+        if(compareByTramp(cardsValue[i], max, tramp, roundShape) === 1) {
             max = cardsValue[i];
             winner = i;
         }
     }
     return winner;
 }
-export function compareByDominant(card1, card2, dominant, roundShape){
+export function compareByTramp(card1, card2, tramp, roundShape){
     let card1Value = card1.substring(0, 1),
         card1Shape = card1.substring(card1.length - 1, card1.length),
         card2Value = card2.substring(0, 1),
         card2Shape = card2.substring(card2.length - 1, card2.length);
-    if(card1Shape === dominant) {
-        if(card2Shape === dominant) {
+    if(card1Shape === tramp) {
+        if(card2Shape === tramp) {
             return compareValue(card1Value,card2Value);
         }
         return 1;
     }
-    if(card2Shape === dominant) {
+    if(card2Shape === tramp) {
         return - 1;
     }
     if(card1Shape === roundShape) {

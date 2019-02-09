@@ -9,17 +9,17 @@ import Name from "../Names/Name";
 import EndGame from "../Table/EndGame";
 import {divideCard, initGame, getWinner, gameOver, sort} from '../Cards/HandleCards';
 import {choseCard, haveThisShape} from "../Players/Strategy";
-import {compareBet, getBet, getBetWithDominant, getHighestBet} from '../Bet/PlayerBet';
+import {compareBet, getBet, getBetWithTramp, getHighestBet} from '../Bet/PlayerBet';
 import Bet from "../Bet/Bet";
 import User from "../Players/User";
 
 class Table extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             players: initGame(divideCard()),
             bets: ['','','',''],
-            table: {dominant: '', numOfRotation: 0, rotationShape: '', cards: ['','','',''], numOfTurns: 0, winner: 5},
+            table: {tramp: '', numOfRotation: 0, rotationShape: '', cards: ['','','',''], numOfTurns: 0, winner: 5},
             cardsThatPlayed: {'C':[], 'D':[], 'H':[], 'S':[]},
             points: [0,0,0,0],
             betRotation: 0,
@@ -33,8 +33,8 @@ class Table extends Component {
             winner: 5,
             newGame: true
         };
-        this.handleBetBeforeDominant = this.handleBetBeforeDominant.bind(this);
-        this.handleBetWithDominant = this.handleBetWithDominant.bind(this);
+        this.handleBetBeforeTramp = this.handleBetBeforeTramp.bind(this);
+        this.handleBetWithTramp = this.handleBetWithTramp.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleUserBetSubmit = this.handleUserBetSubmit.bind(this);
         this.handleRotation = this.handleRotation.bind(this);
@@ -44,7 +44,7 @@ class Table extends Component {
         this.startNewGame = this.startNewGame.bind(this);
     }
 
-    handleBetBeforeDominant(index) {
+    handleBetBeforeTramp(index) {
         let bet, i, playersBets = this.state.bets, highestBidder = getHighestBet(playersBets),
             table = this.state.table,
             firstToBet = this.state.numOfGame%4,
@@ -62,31 +62,32 @@ class Table extends Component {
                 compareBet(bet, playersBets[highestBidder])===1? bet: {value: 0, shape: ''};
         if (playersBets[index].value === 0) {
             if (highestBidder === (index+1)%4) {
-                table.dominant = playersBets[highestBidder].shape;
+                table.tramp = playersBets[highestBidder].shape;
                 let tempHighestBet = playersBets[highestBidder];
                 for (i=0; i<4; i++) {
                     playersBets[i] = '';
                 }
                 playersBets[highestBidder] = tempHighestBet;
                 this.setState({table: table, highestBidder: highestBidder, bets: playersBets});
-                setTimeout(()=>{this.handleBetWithDominant(highestBidder);},150);
+                setTimeout(()=>{this.handleBetWithTramp(highestBidder);},150);
             }
             else if (index === (firstToBet + 3)%4 && highestBidder === -1) {
-                this.setState({highestBidder: firstToBet});
-                setTimeout(()=>{this.handleBetWithDominant(firstToBet);},150);
+                table.tramp = 'NT';
+                this.setState({highestBidder: firstToBet, table: table});
+                setTimeout(()=>{this.handleBetWithTramp(firstToBet);},150);
             }
             else {
-                setTimeout(()=>{this.handleBetBeforeDominant((index+1)%4);},150);
+                setTimeout(()=>{this.handleBetBeforeTramp((index+1)%4);},150);
             }
         }
         else {
             playersBets[index] = bet;
             this.setState({bets: playersBets});
-            setTimeout(()=>{this.handleBetBeforeDominant((index+1)%4);},150);
+            setTimeout(()=>{this.handleBetBeforeTramp((index+1)%4);},150);
         }
     }
 
-    handleBetWithDominant(index) {
+    handleBetWithTramp(index) {
         let i, bet, sumOfBets = 0, playersBets = this.state.bets,
             table = this.state.table,
             firstToBet = this.state.highestBidder,
@@ -95,7 +96,7 @@ class Table extends Component {
             this.setState({userTurnToBet: true});
             return;
         }
-        bet = getBetWithDominant(cards, table.dominant, playersBets);
+        bet = getBetWithTramp(cards, table.tramp, playersBets);
         if (index === firstToBet) {
             if (compareBet(bet, playersBets[firstToBet]) > 0)
                 playersBets[index] = bet;
@@ -124,7 +125,7 @@ class Table extends Component {
             }
         }
         this.setState({bets: playersBets});
-        setTimeout(()=>{this.handleBetWithDominant((index+1)%4);},150);
+        setTimeout(()=>{this.handleBetWithTramp((index+1)%4);},150);
     }
 
     handleUserBetSubmit(bet) {
@@ -136,7 +137,7 @@ class Table extends Component {
 
         if (this.state.userTurnToBet) {
             betRotation++;
-            if (table.dominant === '') {
+            if (table.tramp === '') {
                 high = getHighestBet(bets);
                 if (bet.value !== 0) {
                     for (i=0; i<4; i++) {
@@ -144,27 +145,27 @@ class Table extends Component {
                     }
                     bets[2] = bet;
                     this.setState({betRotation: betRotation, bets: bets});
-                    setTimeout(()=>{this.handleBetBeforeDominant(3);},150);
+                    setTimeout(()=>{this.handleBetBeforeTramp(3);},150);
                     return;
                 }
                 if (3 === high) {
-                    table.dominant = bets[high].shape;
+                    table.tramp = bets[high].shape;
                     let tempHighestBet = bets[high];
                     for (i=0; i<4; i++) {
                         bets[i] = '';
                     }
                     bets[high] = tempHighestBet;
                     this.setState({betRotation: betRotation, table: table, highestBidder: high, bets: bets});
-                    setTimeout(()=>{this.handleBetWithDominant(3);},150);
+                    setTimeout(()=>{this.handleBetWithTramp(3);},150);
                     return;
                 }
-                setTimeout(()=>{this.handleBetBeforeDominant(3);},150);
+                setTimeout(()=>{this.handleBetBeforeTramp(3);},150);
             }
             else {
                 bets[2] = bet;
                 this.setState({bets: bets});
                 if (bets[3] === '') {
-                    setTimeout(()=>{this.handleBetWithDominant(3);},150);
+                    setTimeout(()=>{this.handleBetWithTramp(3);},150);
                 }
                 else {
                     this.setState({showBet: false});
@@ -238,7 +239,7 @@ class Table extends Component {
             cardsPlayed = this.state.cardsThatPlayed,
             tempCard,
             i;
-        table.winner = getWinner(table.cards, table.dominant, table.rotationShape);
+        table.winner = getWinner(table.cards, table.tramp, table.rotationShape);
         players[table.winner].packs++;
         table.numOfTurns = 0;
         table.rotationShape = '';
@@ -305,7 +306,7 @@ class Table extends Component {
             this.setState({
                 players: initGame(divideCard()),
                 bets: ['','','',''],
-                table: {dominant: '', numOfRotation: 0, rotationShape: '', cards: ['','','',''], numOfTurns: 0, winner: 5},
+                table: {tramp: '', numOfRotation: 0, rotationShape: '', cards: ['','','',''], numOfTurns: 0, winner: 5},
                 cardsThatPlayed: {'C':[], 'D':[], 'H':[], 'S':[]},
                 points: points,
                 betRotation: 1,
@@ -317,7 +318,7 @@ class Table extends Component {
                 highestBidder: -1,
                 winner: 5
             });
-            this.handleBetBeforeDominant(numOfGame%4);
+            this.handleBetBeforeTramp(numOfGame%4);
         }
     }
 
@@ -325,7 +326,7 @@ class Table extends Component {
         this.setState({
             players: initGame(divideCard()),
             bets: ['','','',''],
-            table: {dominant: '', numOfRotation: 0, rotationShape: '', cards: ['','','',''], numOfTurns: 0, winner: 5},
+            table: {tramp: '', numOfRotation: 0, rotationShape: '', cards: ['','','',''], numOfTurns: 0, winner: 5},
             cardsThatPlayed: {'C':[], 'D':[], 'H':[], 'S':[]},
             points: [0,0,0,0],
             betRotation: 1,
@@ -338,12 +339,12 @@ class Table extends Component {
             winner: 5,
             newGame: false
         });
-        this.handleBetBeforeDominant(0);
+        this.handleBetBeforeTramp(0);
     }
     render() {
         if (this.state.newGame) {
             this.setState({newGame: false});
-            this.handleBetBeforeDominant(0)
+            this.handleBetBeforeTramp(0)
         }
         let players = this.state.players,
             points = this.state.points,
@@ -360,19 +361,19 @@ class Table extends Component {
                 </div> :
                 <div className="App">
                     <GetBet handleSubmit={this.handleUserBetSubmit} turnToBet={this.state.userTurnToBet}
-                            names={names} bets={bets} dominant={table.dominant} key={this.state.betRotation}
+                            names={names} bets={bets} tramp={table.tramp} key={this.state.betRotation}
                             highestBidder={this.state.highestBidder}/>
                     <Player cards={players[0].cards} pos={"Up"}/>
                     <Name name={"Aviv"} pos={"Up"} packs={players[0].packs} points={points[0]} bet={bets[0]}/>
-                    {showBet ? <Bet name={"Aviv"} bet={bets[0]} dominant={table.dominant} index={0}/> : <div/>}
+                    {showBet ? <Bet name={"Aviv"} bet={bets[0]} tramp={table.tramp} index={0}/> : <div/>}
                     <Player cards={players[1].cards} pos={"Right"}/>
                     <Name name={"Alon"} pos={"Right"} packs={players[1].packs} points={points[1]} bet={bets[1]}/>
-                    {showBet ? <Bet name={"Alon"} bet={bets[1]} dominant={table.dominant} index={1}/> : <div/>}
+                    {showBet ? <Bet name={"Alon"} bet={bets[1]} tramp={table.tramp} index={1}/> : <div/>}
                     <User cards={players[2].cards} onClick={this.handleClick} userTurn={this.state.userTurn} rotationShape={table.rotationShape}/>
                     <Name name={"Ofek"} pos={"User"} packs={players[2].packs} points={points[2]} bet={bets[2]}/>
                     <Player cards={players[3].cards} pos={"Left"}/>
                     <Name name={"Noa"} pos={"Left"} packs={players[3].packs} points={points[3]} bet={bets[3]}/>
-                    {showBet ? <Bet name={"Noa"} bet={bets[3]} dominant={table.dominant} index={3}/> : <div/>}
+                    {showBet ? <Bet name={"Noa"} bet={bets[3]} tramp={table.tramp} index={3}/> : <div/>}
                     <TableCards cards={this.state.table.cards} end={this.state.end} winner={names[table.winner]}/>
                 </div>
         );

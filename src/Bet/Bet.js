@@ -7,8 +7,8 @@ class Bet extends Component {
             return <div/>
         }
         return <div>
-            <h4 className={"Bet"+this.props.index}>{this.props.name}
-             bet: {bet.value === 0 && this.props.dominant === ''? 'pass': bet.value + bet.shape}</h4>
+            <h4 className={"Bet"+this.props.index}>{this.props.name+"'s "}
+             bet: {bet.value === 0 && this.props.tramp === ''? 'pass': bet.value + bet.shape}</h4>
         </div>
     }
 }

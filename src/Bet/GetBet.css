@@ -1,11 +1,17 @@
 .container {
     display: flex;
     flex-direction: column;
-    border: 2px solid;
-    border-radius: 10px;
+    width: 250px;
+    height: 38px;
+    border: 1px solid;
+    border-radius: 5px;
     background-color: skyblue;
 }
-.Dominant {
+.Submit {
+    border: 1px solid;
+    border-radius: 5px;
+}
+.Tramp {
     position: absolute;
     height: 15px;
     width: 15px;

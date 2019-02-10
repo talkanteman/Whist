@@ -117,6 +117,9 @@ export default class GetBet extends Component {
             if (sumOfBets <= 13) {
                 tempValues.splice(13-sumOfBets, 1);
             }
+            if (this.state.betValue === 13-sumOfBets) {
+                this.changeInitValue(14-sumOfBets);
+            }
         }
         if (this.state.display) {
             return <div>

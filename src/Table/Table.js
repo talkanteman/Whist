@@ -20,7 +20,7 @@ class Table extends Component {
             players: initGame(divideCard()),
             bets: ['','','',''],
             table: {tramp: '', numOfRotation: 0, rotationShape: '', cards: ['','','',''], numOfTurns: 0, winner: 5},
-            cardsThatPlayed: {'C':[], 'D':[], 'H':[], 'S':[]},
+            cardsThatPlayed: {'C':[], 'D':[], 'H':[], 'S':[], 'NT':[]},
             points: [0,0,0,0],
             betRotation: 0,
             showBet: true,
@@ -73,7 +73,10 @@ class Table extends Component {
             }
             else if (index === (firstToBet + 3)%4 && highestBidder === -1) {
                 table.tramp = 'NT';
-                this.setState({highestBidder: firstToBet, table: table});
+                for (i=0; i<4; i++) {
+                    playersBets[i] = '';
+                }
+                this.setState({highestBidder: firstToBet, table: table, bets: playersBets});
                 setTimeout(()=>{this.handleBetWithTramp(firstToBet);},150);
             }
             else {
@@ -132,6 +135,7 @@ class Table extends Component {
         let table = this.state.table, bets = this.state.bets,
             high = 0, i,
             players = this.state.players,
+            firstToBet = this.state.numOfGame%4,
             betRotation = this.state.betRotation;
         players[2].bet = bet;
 
@@ -159,6 +163,14 @@ class Table extends Component {
                     setTimeout(()=>{this.handleBetWithTramp(3);},150);
                     return;
                 }
+                if (3 === firstToBet && -1 === high) {
+                    table.tramp = 'NT';
+                    for (i=0; i<4; i++) {
+                        bets[i] = '';
+                    }
+                    this.setState({highestBidder: firstToBet, table: table, bets: bets});
+                    setTimeout(()=>{this.handleBetWithTramp(firstToBet);},150);
+                }
                 setTimeout(()=>{this.handleBetBeforeTramp(3);},150);
             }
             else {
@@ -176,12 +188,15 @@ class Table extends Component {
     }
 
     handleRotation(index) {
-        let players = this.state.players, chose,
+        let players = this.state.players, chose, packages=[], i,
             cardsThatPlayed = this.state.cardsThatPlayed,
             table = this.state.table,
             bets = this.state.bets;
+        for (i=0; i<players.length; i++) {
+            packages.push(players[i].packs);
+        }
 
-        chose = choseCard(players[index].cards, table, bets, players[index].packs, index, cardsThatPlayed);
+        chose = choseCard(players[index].cards, table, bets, packages, index, cardsThatPlayed);
         if (table.rotationShape === '') {
             table.rotationShape = players[index].cards[chose][players[index].cards[chose].length-1];
         }

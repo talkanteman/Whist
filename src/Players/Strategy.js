@@ -3,8 +3,8 @@ export function choseCard (cards, table, bets, packages, index, cardsThatPlayed)
     let tableCards = table.cards, rotationShape = table.rotationShape,
         tramp = table.tramp;
     let cardsByShape = splitCardsByShape(cards);
-    if (underGame(bets)) {
-        if (mustTakeAll(table.numOfRotation, bets[index], packages)) {
+    if (underGame(bets, packages, table.numOfRotation)) {
+        if (mustTakeAll(table.numOfRotation, bets[index], packages[index])) {
             if (firstToPlay(rotationShape)) {
                 return getTheHighestCard(cards);
             }
@@ -12,11 +12,11 @@ export function choseCard (cards, table, bets, packages, index, cardsThatPlayed)
                 if (lastToPlay(table)) {
                     return getTheLowestCardThatTake(cards, tableCards, rotationShape, tramp);
                 }
-                return getTheHighestCard(cards);
+                return getTheHighestCard(cards, rotationShape, tramp);
             }
             return getIndexOfLowestCard(cards, table);
         }
-        if (finishToTake(bets[index], packages)) {
+        if (finishToTake(bets[index], packages[index])) {
             return getIndexOfLowestCard(cards, table);
         }
         if (firstToPlay(rotationShape)) {
@@ -34,7 +34,7 @@ export function choseCard (cards, table, bets, packages, index, cardsThatPlayed)
         return getTheHighestCard(cards, rotationShape, tramp);
     }
     // "over" game
-    if (finishToTake(bets[index], packages)) {
+    if (finishToTake(bets[index], packages[index])) {
         if (firstToPlay(rotationShape))
             return getIndexOfLowestCard(cards, table);
         if (canILossOnPurpose(cards, tableCards, cardsThatPlayed, rotationShape, tramp)) {
@@ -78,12 +78,13 @@ let cleanCards = function (cards) {
     return temp;
 };
 
-let underGame = function (bets) {
-    let i, sumOfBets = 0;
+let underGame = function (bets, packages, numOfRotation) {
+    let i, sumOfNeedToTake = 0;
     for (i=0; i<bets.length; i++) {
-        sumOfBets += bets[i].value;
+        sumOfNeedToTake += bets[i].value - packages[i];
     }
-    return sumOfBets<13;
+
+    return sumOfNeedToTake<13-numOfRotation;
 };
 
 export function haveThisShape (cards, shape) {
@@ -232,7 +233,7 @@ let doIHaveSureTake = function (cards, tableCards, cardsThatPlayed, rotationShap
         return true;
     }
     if (haveThisShape) {
-        if (cardsThatPlayed[tramp].length + splitCards[tramp].length !== 13) {
+        if (tramp !== 'NT' && cardsThatPlayed[tramp].length + splitCards[tramp].length !== 13) {
             //ToDo //if the rest of the player have the shape we good
             return false;
         }
@@ -347,7 +348,8 @@ export function splitCardsByShape(cards) {
         'C': [],
         'D': [],
         'H': [],
-        'S': []
+        'S': [],
+        'NT': []
     };
     let i;
     for (i=0; i<cards.length; i++) {

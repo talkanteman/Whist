@@ -5,11 +5,11 @@ import diamondSrc from "./diamond.png"
 import heartSrc from "./heart.png"
 import spadeSrc from "./spade.png"
 
-let club = <img src={clubSrc} className={'Tramp'} alt={'Club'}/>;
-let diamond = <img src={diamondSrc} className={'Tramp'} alt={'Diamond'}/>;
-let heart = <img src={heartSrc} className={'Tramp'} alt={'Heart'}/>;
-let spade = <img src={spadeSrc} className={'Tramp'} alt={'Spade'}/>;
-const tramps = {
+let club = <img src={clubSrc} className={'Trump'} alt={'Club'}/>;
+let diamond = <img src={diamondSrc} className={'Trump'} alt={'Diamond'}/>;
+let heart = <img src={heartSrc} className={'Trump'} alt={'Heart'}/>;
+let spade = <img src={spadeSrc} className={'Trump'} alt={'Spade'}/>;
+const trumps = {
     C: club,
     D: diamond,
     H: heart,
@@ -53,8 +53,8 @@ export default class GetBet extends Component {
     }
     handleSubmit() {
         this.setState({display:false});
-        if (this.props.tramp !== '') {
-            this.props.handleSubmit({value: this.state.betValue, shape: this.props.tramp});
+        if (this.props.trump !== '') {
+            this.props.handleSubmit({value: this.state.betValue, shape: this.props.trump});
         }
         else {
             this.props.handleSubmit({value: this.state.betValue, shape: this.state.betShape});
@@ -70,7 +70,7 @@ export default class GetBet extends Component {
         if (this.props.highestBidder === user && this.state.betValue === 0) {
             this.changeInitValue(this.props.bets[user].value)
         }
-        let highestBet = 0, i=0, tempValuesBeforeTramp = [
+        let highestBet = 0, i=0, tempValuesBeforeTrump = [
                 {value: 0, label: 'pass'},
                 {value: 5, label: '5'},
                 {value: 6, label: '6'},
@@ -102,8 +102,8 @@ export default class GetBet extends Component {
             if (this.props.bets[i].value > highestBet)
                 highestBet = this.props.bets[i].value;
         }
-        if (highestBet > 0 && this.props.highestBidder === -1 && tempValuesBeforeTramp.length > (15 - highestBet)) {
-            tempValuesBeforeTramp.splice(1, highestBet-5);
+        if (highestBet > 0 && this.props.highestBidder === -1 && tempValuesBeforeTrump.length > (15 - highestBet)) {
+            tempValuesBeforeTrump.splice(1, highestBet-5);
         }
         if (this.props.highestBidder === user && tempValues.length > (14 - highestBet)) {
             tempValues.splice(0, highestBet);
@@ -126,7 +126,7 @@ export default class GetBet extends Component {
 
                 <div className={"GetBet"}>
                     {this.props.highestBidder === -1? '':
-                      <span>The tramp is: {tramps[this.props.tramp]}</span>}
+                      <span>The trump is: {trumps[this.props.trump]}</span>}
 
                     <form className={"container"} onSubmit={this.handleSubmit}>
                         <label>
@@ -138,7 +138,7 @@ export default class GetBet extends Component {
                                     })}
                                 </select>:
                                 <select value={this.state.betValue} onChange={this.handleValueChange}>
-                                    {tempValuesBeforeTramp.map((value) => {
+                                    {tempValuesBeforeTrump.map((value) => {
                                         return <option value={value.value} key={value.value}>{value.label}</option>
                                     })}
                                 </select>
@@ -147,7 +147,7 @@ export default class GetBet extends Component {
                         </label>
                         {this.props.highestBidder === -1 && this.state.betValue > 0?
                         <label>
-                            pick your tramp shape:
+                            pick your trump shape:
                             <select value={this.state.betShape} onChange={this.handleShapeChange}>
                                 {shapes.map((value) => {
                                     return <option value={value.value} key={value.value}>

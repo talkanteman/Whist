@@ -1,13 +1,13 @@
-/* get the first bet to determine the tramp */
+/* get the first bet to determine the trump */
 import {splitCardsByShape} from "../Players/Strategy"
 
-export function getBetWithTramp(cards, tramp, bets) {
+export function getBetWithTrump(cards, trump, bets) {
     let betValue = 0,i, j =0, sumOfBets=0,
         splitCards = splitCardsByShape(cards);
-    betValue += getBetByShape(splitCards['C'], 'C', tramp);
-    betValue += getBetByShape(splitCards['D'], 'D', tramp);
-    betValue += getBetByShape(splitCards['S'], 'S', tramp);
-    betValue += getBetByShape(splitCards['H'], 'H', tramp);
+    betValue += getBetByShape(splitCards['C'], 'C', trump);
+    betValue += getBetByShape(splitCards['D'], 'D', trump);
+    betValue += getBetByShape(splitCards['S'], 'S', trump);
+    betValue += getBetByShape(splitCards['H'], 'H', trump);
     for (i=0; i<4; i++) {
         if (bets[i] !== '')
             j++;
@@ -20,10 +20,10 @@ export function getBetWithTramp(cards, tramp, bets) {
     }
     if (sumOfBets+betValue===13)
         betValue++;
-    return {value: betValue, shape: tramp};
+    return {value: betValue, shape: trump};
 }
 
-let getBetByShape = function (cards, shape, tramp) {
+let getBetByShape = function (cards, shape, trump) {
     let counter = 0;
     if (cards.length===0) {
         return counter;
@@ -37,7 +37,7 @@ let getBetByShape = function (cards, shape, tramp) {
         counter += haveThisNumber(cards, "1");
     if (counter>3 && cards.length>5)
         counter += haveThisNumber(cards, "9");
-    if (shape===tramp && cards.length>counter+4) {
+    if (shape===trump && cards.length>counter+4) {
         counter = cards.length-4;
     }
     else if (cards.length>counter+5) {
@@ -60,13 +60,13 @@ export function getBet(cards) {
         club, diamond, heart, spade,
         i, bet, shape;
 
-    club = getBetByShapeBeforeTrampSet(splitCards['C']);
+    club = getBetByShapeBeforeTrumpSet(splitCards['C']);
     bet = club;
-    diamond = getBetByShapeBeforeTrampSet(splitCards['D']);
+    diamond = getBetByShapeBeforeTrumpSet(splitCards['D']);
     bet+=diamond;
-    heart = getBetByShapeBeforeTrampSet(splitCards['H']);
+    heart = getBetByShapeBeforeTrumpSet(splitCards['H']);
     bet+=heart;
-    spade = getBetByShapeBeforeTrampSet(splitCards['S']);
+    spade = getBetByShapeBeforeTrumpSet(splitCards['S']);
     bet+=spade;
     let numToBet =[club, diamond, heart, spade], shapes = ['C','D','H','S'],
         lengths = [splitCards['C'].length,splitCards['D'].length,splitCards['H'].length,splitCards['S'].length];
@@ -80,7 +80,7 @@ export function getBet(cards) {
     }
     return {value: bet, shape: shape};
 }
-let getBetByShapeBeforeTrampSet = function (cards) {
+let getBetByShapeBeforeTrumpSet = function (cards) {
     let counter = 0;
     if (cards.length===0) {
         return counter;

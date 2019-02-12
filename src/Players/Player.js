@@ -4,7 +4,7 @@ import Card from "../Cards/Card";
 class Player extends Component {
 
     constructor(props) {
-        super();
+        super(props);
         this.state = {
             name: props.name,
             pos: props.pos

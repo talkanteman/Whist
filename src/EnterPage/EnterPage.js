@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import './EnterPage.css'
 class EnterPage extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             mouseOver: false
         }

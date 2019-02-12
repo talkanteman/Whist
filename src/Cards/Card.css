@@ -51,6 +51,12 @@
     height: 140px;
     bottom: 10px;
 }
+.NotShape {
+    display: inline-block;
+    opacity: 0.7;
+    color: #000000;
+    filter: brightness(70%);
+}
 .LeftCard {
     position: absolute;
     width: auto;

@@ -4,8 +4,8 @@ import Table from "./Table/Table";
 import EnterPage from "./EnterPage/EnterPage"
 
 class App extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             buttonPressed: false
         }

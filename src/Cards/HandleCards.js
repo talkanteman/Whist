@@ -122,22 +122,22 @@ function compareValue(xValue, yValue) {
             return 1;
     }
 }
-export function initTramp(players) {
+export function initTrump(players) {
     let bets = [{value: '', shape: ''},{value: '', shape: ''},{value: '', shape: ''},{value: '', shape: ''}],
-        tramp , i;
+        trump , i;
     for (i=0; i<4; i++) {
         bets[i] = players[i].bet;
     }
-    tramp = {value: 0, shape: ''};
+    trump = {value: 0, shape: ''};
     for (i=0; i<4; i++) {
         if (!isNaN(bets[i].value)) {
-            if (bets[i].value > tramp.value)
-                tramp = bets[i];
-            else if (bets[i].value === tramp.value && bets[i].shape > tramp.shape)
-                tramp = bets[i];
+            if (bets[i].value > trump.value)
+                trump = bets[i];
+            else if (bets[i].value === trump.value && bets[i].shape > trump.shape)
+                trump = bets[i];
         }
     }
-    return tramp.shape;
+    return trump.shape;
 }
 
 /* init the player */
@@ -151,29 +151,29 @@ export function initGame(cards) {
     return tempPlayers;
 }
 /* get the winner card */
-export function getWinner(cardsValue, tramp, roundShape) {
+export function getWinner(cardsValue, trump, roundShape) {
     let max = cardsValue[0];
     let winner = 0, i;
     for (i=1; i<4; i++){
-        if(compareByTramp(cardsValue[i], max, tramp, roundShape) === 1) {
+        if(compareByTrump(cardsValue[i], max, trump, roundShape) === 1) {
             max = cardsValue[i];
             winner = i;
         }
     }
     return winner;
 }
-export function compareByTramp(card1, card2, tramp, roundShape){
+export function compareByTrump(card1, card2, trump, roundShape){
     let card1Value = card1.substring(0, 1),
         card1Shape = card1.substring(card1.length - 1, card1.length),
         card2Value = card2.substring(0, 1),
         card2Shape = card2.substring(card2.length - 1, card2.length);
-    if(card1Shape === tramp) {
-        if(card2Shape === tramp) {
+    if(card1Shape === trump) {
+        if(card2Shape === trump) {
             return compareValue(card1Value,card2Value);
         }
         return 1;
     }
-    if(card2Shape === tramp) {
+    if(card2Shape === trump) {
         return - 1;
     }
     if(card1Shape === roundShape) {

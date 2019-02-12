@@ -7,11 +7,7 @@ The Israeli Whist is a card game, for description and roles please refer to this
 to play online, follow the link [The Israeli Whist](https://talkanteman.github.io/whist/)
 
 ## Run development server
-<<<<<<< HEAD
 
-If you want to play online, you can play here [The Israeli Whist](https://talkanteman.github.io/whist/)
-=======
->>>>>>> a035325d3f78317e9ef74eca25de9c571e561157
 
 1) Download the src files (or use git to clone to a desired directory on your computer).
 2) Open terminal (cmd) in the src directory, and type "npm install", wait for it to download all files needed.

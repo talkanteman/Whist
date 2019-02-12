@@ -43,7 +43,6 @@
     width: auto;
     height: 140px;
     bottom: 1px;
-
 }
 .UserCardOver {
     position: absolute;
@@ -53,7 +52,6 @@
 }
 .NotShape {
     display: inline-block;
-    opacity: 0.7;
     color: #000000;
     filter: brightness(70%);
 }

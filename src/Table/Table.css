@@ -12,10 +12,19 @@
 }
 .End {
     position: absolute;
-    top: 50%;
-    right: 50%;
-    width: 150px;
+    display: flex;
+    flex-direction: column;
+    top: 40%;
+    right: 44%;
     background-color: lawngreen;
     border: 3px solid;
     border-radius: 8px;
+}
+.Button {
+    height: 30px;
+    border-radius: 7px;
+}
+.H {
+    height: 30px;
+    border-radius: 7px;
 }

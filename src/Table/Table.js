@@ -206,7 +206,7 @@ class Table extends Component {
 
         this.setState({table: table});
         if (table.numOfTurns === 4) {
-            setTimeout(()=>this.endRotation(),1000);
+            setTimeout(()=>this.endRotation(),500);
         }
         else {
             switch (index) {
@@ -266,11 +266,10 @@ class Table extends Component {
                 cardsPlayed[tempCard[tempCard.length-1]] = sort(cardsPlayed[tempCard[tempCard.length-1]]);
         }
         table.cards = ['', '', '', ''];
-        this.setState({end:true});
+        this.setState({end:true, players: players, cardsThatPlayed: cardsPlayed, table: table});
         setTimeout(()=>{
-            this.setState({end: false, table: table});
-            this.setState({players: players, cardsThatPlayed: cardsPlayed});
-        }, 500);
+            this.setState({end: false});
+        }, 600);
         setTimeout(()=>{
             this.startRotation()
         }, 1000);

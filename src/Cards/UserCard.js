@@ -25,7 +25,6 @@ class UserCard extends Component {
                 this.props.userHaveThisShape &&
                 this.props.src[this.props.src.length-1]!==this.props.rotationShape? "UserCard NotShape U"+this.props.index:
                 this.state.mouseOver? "UserCardOver U"+this.props.index: "UserCard U"+this.props.index;
-            //className = this.state.mouseOver && this.props.userTurn? "UserCardOver U"+this.props.index: "UserCard U"+this.props.index;
         return <div className={className}>
             <img src={src} alt={alt} className={className} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}
                  onClick={()=>this.props.onClick(this.props.index)}/>:

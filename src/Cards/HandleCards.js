@@ -122,33 +122,16 @@ function compareValue(xValue, yValue) {
             return 1;
     }
 }
-export function initTrump(players) {
-    let bets = [{value: '', shape: ''},{value: '', shape: ''},{value: '', shape: ''},{value: '', shape: ''}],
-        trump , i;
-    for (i=0; i<4; i++) {
-        bets[i] = players[i].bet;
-    }
-    trump = {value: 0, shape: ''};
-    for (i=0; i<4; i++) {
-        if (!isNaN(bets[i].value)) {
-            if (bets[i].value > trump.value)
-                trump = bets[i];
-            else if (bets[i].value === trump.value && bets[i].shape > trump.shape)
-                trump = bets[i];
-        }
-    }
-    return trump.shape;
-}
+
 
 /* init the player */
 export function initGame(cards) {
-    let tempPlayers = [
+    return [
         {cards: cards[0], bet: {value: '', shape: ''}, packs: 0},
         {cards: cards[1], bet: {value: '', shape: ''}, packs: 0},
         {cards: cards[2], bet: {value: '', shape: ''}, packs: 0},
         {cards: cards[3], bet: {value: '', shape: ''}, packs: 0}
     ];
-    return tempPlayers;
 }
 /* get the winner card */
 export function getWinner(cardsValue, trump, roundShape) {
@@ -189,9 +172,9 @@ export function compareByTrump(card1, card2, trump, roundShape){
 }
 
 export function gameOver(points) {
-    let i =0;
-    while (i < 4 && points[i] < 100) {
-        i++;
-    }
+    let i;
+    i = points.indexOf(Math.max(...points));
+    if (points[i]<100)
+        i = 5;
     return i;
 }

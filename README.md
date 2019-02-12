@@ -1,6 +1,6 @@
 # The Israeli Whist
 
-This project created with React.
+This project created in JavaScript by using React.
 
 The Israeli Whist is a card game, for description and roles please refer to this [Wikipedia page](https://en.wikipedia.org/wiki/Israeli_whist)
 

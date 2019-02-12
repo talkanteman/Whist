@@ -1,7 +1,7 @@
 {
-  "main.css": "/whist/static/css/main.86701cdb.chunk.css",
-  "main.js": "/whist/static/js/main.1c0ece39.chunk.js",
-  "main.js.map": "/whist/static/js/main.1c0ece39.chunk.js.map",
+  "main.css": "/whist/static/css/main.e7a9a129.chunk.css",
+  "main.js": "/whist/static/js/main.9f7e8a0b.chunk.js",
+  "main.js.map": "/whist/static/js/main.9f7e8a0b.chunk.js.map",
   "static/js/1.46e7d8de.chunk.js": "/whist/static/js/1.46e7d8de.chunk.js",
   "static/js/1.46e7d8de.chunk.js.map": "/whist/static/js/1.46e7d8de.chunk.js.map",
   "runtime~main.js": "/whist/static/js/runtime~main.bc5f1a0c.js",
@@ -11,8 +11,8 @@
   "static/media/heart.png": "/whist/static/media/heart.2b15b148.png",
   "static/media/index.css": "/whist/static/media/background.39ba1068.jpg",
   "static/media/Club.png": "/whist/static/media/Club.1c559601.png",
-  "static/css/main.86701cdb.chunk.css.map": "/whist/static/css/main.86701cdb.chunk.css.map",
+  "static/css/main.e7a9a129.chunk.css.map": "/whist/static/css/main.e7a9a129.chunk.css.map",
   "index.html": "/whist/index.html",
-  "precache-manifest.95741456121145aa76cd7a16851976fd.js": "/whist/precache-manifest.95741456121145aa76cd7a16851976fd.js",
+  "precache-manifest.cee4322cddd08a073513510970c1a06c.js": "/whist/precache-manifest.cee4322cddd08a073513510970c1a06c.js",
   "service-worker.js": "/whist/service-worker.js"
 }
